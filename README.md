@@ -19,6 +19,7 @@ This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.b
 	- Generate 10 random orders for the test
 
 Ports used: 9092 (Kafka) and 2181 (Zookeeper).
+WebSite: 8081 (I had some problems running on 8080 as I have another services running on this port).
 
 In case you want to change the number of partitions for some topic, you can do that directly on the docker-compose.yml file, where the command follow the following pattern: `<topic name>:<number of partitions>:<number of replicas>`. So, if you want to do something like is done on the course, you can change the configuration to:
 ```
@@ -62,6 +63,7 @@ Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com
 	- Gerar 10 ordens randomicas para teste
 
 Portas usadas: 9092 (Kafka) and 2181 (Zookeeper).
+WebSite: 8081 (Eu tive alguns problemas para rodar na porta 8080 já que tenho outro serviço rodando nesta porta).
 
 Caso você queira mudar o número de partições para algum tópico, você pode fazer isso direto no arquio docker-compose.yml, onde o comando segue o seguinte padrão: `<nome do tópico>:<número de partições>:<número de réplicas>`. Logo, se você quiser fazer algo como feito durante o curso, você pode mudar a configuração para:
 ```
