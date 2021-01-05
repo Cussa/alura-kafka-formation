@@ -2,7 +2,7 @@
 
 Portuguese version bellow.
 
-This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.br/formacao-kafka) from the [@alura-cursosname](https://github.com/alura-cursos)
+This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.br/formacao-kafka) from the [@alura-cursos](https://github.com/alura-cursos)
 
 ![alt text](https://github.com/Cussa/alura-kafka-formation/blob/main/images/ServiceRunning.png?raw=true)
 
@@ -26,7 +26,7 @@ In case you want to change the number of partitions for some topic, you can do t
 KAFKA_CREATE_TOPICS: "ECOMMERCE_NEW_ORDER:3:1,ECOMMERCE_SEND_EMAIL:1:1"
 ```
 
-## Differences comparing with the Original from [@alura-cursosname](https://github.com/alura-cursos)
+## Differences comparing with the Original from [@alura-cursos](https://github.com/alura-cursos)
 
 As the original is done in Java, there are some differences between their code and mine:
 - On the DotNet library, you don't need to specify the key and value serializer/deserializer always. By default, it already uses a String Serializer/Deserializer. And that works a little bit different on the library. You have to create a builder and pass the de/serializer to it.
@@ -62,7 +62,7 @@ To make it a little bit easier, we can start some other containers and scale Kaf
 
 # Formação Kafka - Alura Cursos
 
-Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com.br/formacao-kafka) da [@alura-cursosname](https://github.com/alura-cursos)
+Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com.br/formacao-kafka) da [@alura-cursos](https://github.com/alura-cursos)
 
 ## Cursos abordados até o momento
 - [Kafka: Produtores, Consumidores e streams](https://cursos.alura.com.br/course/kafka-introducao-a-streams-em-microservicos)
@@ -84,7 +84,7 @@ Caso você queira mudar o número de partições para algum tópico, você pode 
 KAFKA_CREATE_TOPICS: "ECOMMERCE_NEW_ORDER:3:1,ECOMMERCE_SEND_EMAIL:1:1"
 ```
 
-## Diferenças em comparação a versão original da [@alura-cursosname](https://github.com/alura-cursos)
+## Diferenças em comparação a versão original da [@alura-cursos](https://github.com/alura-cursos)
 
 Como a versão original foi feita em Java, há algumas diferenças entre o código deles e o meu:
 - Na biblioteca do Kafka-DotNet, você não precisa especificar sempre um serializador/deserializador. Por padrão, ele irá sempre usar um de/serializador para Strings. E isso funciona um pouco diferente na biblioteca. Você precisar criar um builder e passar o serializador para ele:
