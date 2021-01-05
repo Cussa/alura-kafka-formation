@@ -10,16 +10,28 @@ function CheckDockerIsRunning
 	return $isRunning
 }
 
-function StartUserService
+function StartService($service, $NewWindow = $True, $arguments)
 {
-	$isRunning = ps Ecommerce.Service.User -ErrorAction SilentlyContinue
-	if ($isRunning)
+	if (CheckDockerIsRunning)
 	{
-		Write-Error "You can only run 1 instance of this service."
-	}
-	else
-	{
-		invoke-expression 'cmd /c start .\src\Ecommerce.Service.Users\bin\Debug\netcoreapp3.1\Ecommerce.Service.Users.exe'
+		$path = '.\src\{0}\bin\Debug\netcoreapp3.1\{0}.exe' -f $service
+		
+		if ($NewWindow)
+		{
+			Write-Host "$service will execute in new window"
+			if ($arguments)
+			{
+				Start-Process $path -ArgumentList $arguments
+			}
+			else 
+			{
+				Start-Process $path
+			}
+		}
+		else 
+		{
+			invoke-expression $path
+		}
 	}
 }
 
@@ -49,6 +61,9 @@ while($true)
 	Write-Host "3`tStart Log Service"
 	Write-Host "4`tStart Email Service"
 	Write-Host "5`tStart Fraud Detector Service"
+	Write-Host "6`tStart User Service"
+	Write-Host "7`tStart Batch User Service"
+	Write-Host "8`tStart Reading Report Service"
 	Write-Host "88`tDelete Users table"
 	Write-Host "99`tStop Kafka Docker"
 	Write-Host "cls`tClear the console"
@@ -58,11 +73,13 @@ while($true)
 	{
 		{$_ -eq "1"} { docker-compose up -d }
 		{$_ -eq "99"} { docker-compose down }
-		{$_ -eq "2"} { if (CheckDockerIsRunning -eq $true) { .\src\Ecommerce.Service.NewOrder\bin\Debug\netcoreapp3.1\Ecommerce.Service.NewOrder.exe } }
-		{$_ -eq "3"} { invoke-expression 'cmd /c start .\src\Ecommerce.Service.Log\bin\Debug\netcoreapp3.1\Ecommerce.Service.Log.exe'}
-		{$_ -eq "4"} { invoke-expression 'cmd /c start .\src\Ecommerce.Service.Email\bin\Debug\netcoreapp3.1\Ecommerce.Service.Email.exe'}
-		{$_ -eq "5"} { invoke-expression 'cmd /c start .\src\Ecommerce.Service.FraudDetector\bin\Debug\netcoreapp3.1\Ecommerce.Service.FraudDetector.exe'}
-		{$_ -eq "6"} { StartUserService }
+		{$_ -eq "2"} { StartService "Ecommerce.Service.NewOrder" -NewWindow $False }
+		{$_ -eq "3"} { StartService "Ecommerce.Service.Log" }
+		{$_ -eq "4"} { StartService "Ecommerce.Service.Email" }
+		{$_ -eq "5"} { StartService "Ecommerce.Service.FraudDetector" }
+		{$_ -eq "6"} { StartService "Ecommerce.Service.Users" -Arguments "1" }
+		{$_ -eq "7"} { StartService "Ecommerce.Service.Users" -Arguments "2" }
+		{$_ -eq "8"} { StartService "Ecommerce.Service.ReadingReport" }
 		{$_ -eq "88"} { DeleteUserServiceDatabase }
 		{$_ -eq "cls"} { cls }
 		{$_ -eq "build"} {

@@ -1,0 +1,4 @@
+﻿Report Model
+
+User	Reads
+=============

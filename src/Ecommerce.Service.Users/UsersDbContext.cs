@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Service.Users
 {
@@ -10,7 +11,10 @@ namespace Ecommerce.Service.Users
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=users_database.db");
+        {
+            var databasePath = Path.Combine(Directory.GetCurrentDirectory(), "users_database.db");
+            options.UseSqlite($"Data Source={databasePath}");
+        }
 
         internal DbSet<User> Users { get; set; }
     }

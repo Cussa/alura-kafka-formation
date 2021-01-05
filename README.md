@@ -38,7 +38,6 @@ if (deserializer != null)
     builder.SetValueDeserializer(deserializer);
 _consumer = builder.Build();
 ```
-- I created a function that verifies if there is some change on the partitions that the consumer is assigned. If yes, it print some information about the new partition. Every time it consumes a message, it will verify if there is a change. This is a validation that should only be done in debug options and should not be used in production environment.
 - In the KafkaDispatcher and KafkaConsumer, there are some commented configuration about the logs from Kafka Library. Uncomment it if you want to see the Kafka logs on the console.
 - As far as I got, there is no way to follow some of the configuration that is done in the course. However, everything seems to be working without problems.
 - To avoid mistypes, I create a Topic class that have the topics names in constants and everywhere that need the topics, uses this class.
@@ -59,6 +58,10 @@ And then you have to open the port that you will use the second kafka manually. 
 However, as the docker image starts the Kafka automatically, you will face some issues to do the replications change, as showed on the course.
 
 To make it a little bit easier, we can start some other containers and scale Kafka from Docker. To do that, you should first modify the file [`docker-compose-cluster.yml`](docker-compose-cluster.yml), changing the `KAFKA_ADVERTISED_HOST_NAME` to your local ip address. Then, you can run the following command: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. It will start to services for Kafka, with the replication set to 2 already. Changing this file, you can start even more containers running the Kafka with the replication.
+
+### Kafka: Batches, correlation ids e dead letters - Class 1
+
+- In the original, the instructor just create a new "Main" method for the batch processor. This is possible because you can run directly the file from the IDE. However, in C# that is not possible. So, to reproduce a similar behavior, I changed the [Main method](src\Ecommerce.Service.Users\UserService.cs) for the UserService and define that when it runs, it asks the which service it should run. In case you want both (New user creation and Batch service), you can run the service two times, one for each service. On the PS Script, you have the shortcuts for both of them.
 
 # Formação Kafka - Alura Cursos
 
@@ -96,7 +99,6 @@ if (deserializer != null)
     builder.SetValueDeserializer(deserializer);
 _consumer = builder.Build();
 ```
-- Eu criei uma função que verifica se houve alguma mudança na lista de partições que está configurada para o consumidor. Caso tenha, ele irá imprimir as informações sobre a nova partição. Toda vez que ele consome uma mensagem, ele verifica se há alteração. Essa validação deve ser feita apenas em dbug e não deve ser usada em ambientes de produção.
 - No KafkaDispatcher e KafkaConsumer, eu deixei algumas linhdas de configuração de logs comentadas, que se conectam direto na biblioteca do Kafka. Descomente essas linhas caso você queira ver os logs do Kafka no console.
 - Até onde eu entendi, algumas configurações presentes na biblioteca do Java não estão disponíveis na versão DotNet. Porém, tudo parece estar funcionando sem problemas.
 - Para evitar erros de digitação, eu criei uma class para os tópicos `Topics` e todo lugar que precisa usar o nome do tópico, utiliza essa classe.

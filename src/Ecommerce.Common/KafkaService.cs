@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using Confluent.Kafka;
 
@@ -11,7 +9,6 @@ namespace Ecommerce.Common
     {
         private readonly IConsumerFunction<T> _consumerFunction;
         private readonly IConsumer<string, T> _consumer;
-        private List<TopicPartition> currentTopicPartitions = new List<TopicPartition>();
 
         public KafkaService(string groupId,
             string topic,
@@ -23,24 +20,20 @@ namespace Ecommerce.Common
             if (deserializer != null)
                 builder.SetValueDeserializer(deserializer);
 
+#if DEBUG
+            builder.SetPartitionsAssignedHandler((c, partitions) =>
+            {
+                Console.WriteLine($"Assigned partitions: [{string.Join(", ", partitions)}]");
+            })
+            .SetPartitionsRevokedHandler((c, partitions) =>
+            {
+                Console.WriteLine($"Revoking assignment: [{string.Join(", ", partitions)}]");
+            });
+#endif
+
             _consumer = builder.Build();
             _consumerFunction = consumerFunction;
             _consumer.Subscribe(topic);
-        }
-
-        private void CheckAndUpdateAssignment()
-        {
-            if (!Enumerable.SequenceEqual(_consumer.Assignment, currentTopicPartitions))
-            {
-                Console.WriteLine("-----------------------------------------");
-                var msg = new StringBuilder();
-                foreach (var item in _consumer.Assignment)
-                    msg.AppendLine($"{item.Partition}\t\t\t{item.Topic}");
-                Console.WriteLine($"{_consumer.Name} subscribed to:\nPARTITION\t\tTOPIC\n{msg}");
-                currentTopicPartitions = _consumer.Assignment;
-                Console.WriteLine("Listening...");
-                Console.WriteLine("-----------------------------------------");
-            }
         }
 
         private ConsumerConfig GetProperties(string groupId, Dictionary<string, string> properties)
@@ -69,9 +62,6 @@ namespace Ecommerce.Common
                 try
                 {
                     var consumeResult = _consumer.Consume(cts.Token);
-#if DEBUG
-                    CheckAndUpdateAssignment();
-#endif
                     _consumerFunction.Consume(consumeResult);
                 }
                 catch (OperationCanceledException)
