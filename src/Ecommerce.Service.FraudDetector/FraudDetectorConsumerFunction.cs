@@ -7,6 +7,13 @@ namespace Ecommerce.Service.FraudDetector
 {
     class FraudDetectorConsumerFunction : IConsumerFunction<Order>
     {
+        private readonly KafkaDispatcher<Order> _orderDispatcher;
+
+        public FraudDetectorConsumerFunction()
+        {
+            _orderDispatcher = new KafkaDispatcher<Order>();
+        }
+
         public void Consume(ConsumeResult<string, Order> record)
         {
             Console.WriteLine("------------------------------");
@@ -14,11 +21,27 @@ namespace Ecommerce.Service.FraudDetector
             Console.WriteLine($"{record.Message.Key}\n{record.Message.Value}\n{record.Partition}\n{record.Offset}");
 
             var order = record.Message.Value;
-            Console.WriteLine($"UserId: {order.UserId}\nOrderId: {order.OrderId}\nAmount: {order.Amount}");
+            Console.WriteLine($"Order: {order}");
 
             //Simulate a slow process of fraud detection
             Thread.Sleep(5000);
-            Console.WriteLine("Order processed");
+
+            if (IsFraud(order))
+            {
+                Console.WriteLine("Order is a fraud!!!!");
+                _orderDispatcher.Send(Topics.OrderReject, order.UserId, order);
+            }
+            else
+            {
+                Console.WriteLine("Approved: " + order);
+                _orderDispatcher.Send(Topics.OrderApproved, order.UserId, order);
+            }
+        }
+
+        public bool IsFraud(Order order)
+        {
+            // pretend that the fraud happens when the amount is greather or equal than 4500
+            return order.Amount >= 4500;
         }
     }
 }

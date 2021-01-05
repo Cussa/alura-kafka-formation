@@ -79,6 +79,11 @@ namespace Ecommerce.Common
                     Console.WriteLine("----- Operation cancelled. -----");
                     break;
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                }
             }
         }
 

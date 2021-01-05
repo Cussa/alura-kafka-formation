@@ -1,4 +1,6 @@
-﻿namespace Ecommerce.Service.FraudDetector
+﻿using Ecommerce.Common;
+
+namespace Ecommerce.Service.FraudDetector
 {
     // using internal, as the by the concept from the course, each service should have its own Order class
     internal class Order
@@ -13,5 +15,7 @@
             OrderId = orderId;
             Amount = amount;
         }
+
+        public override string ToString() => this.ToJsonString();
     }
 }

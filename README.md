@@ -39,6 +39,8 @@ _consumer = builder.Build();
 - In the KafkaDispatcher and KafkaConsumer, there are some commented configuration about the logs from Kafka Library. Uncomment it if you want to see the Kafka logs on the console.
 - As far as I got, there is no way to follow some of the configuration that is done in the course. However, everything seems to be working without problems.
 - To avoid mistypes, I create a Topic class that have the topics names in constants and everywhere that need the topics, uses this class.
+- In the course, the intructor created a GetAmount() method, as it's considered the better pattern to follow in Java. However, the same doesn't happen in C#. So, I decided to use the public property without the *set*, which means you can access the value but can't modified it.
+- Instead of override the ToString writing the properties from the Order class, I generated a extension method that serialize the object to a json string.
 
 # Portuguese Version
 
@@ -79,3 +81,5 @@ _consumer = builder.Build();
 - No KafkaDispatcher e KafkaConsumer, eu deixei algumas linhdas de configuração de logs comentadas, que se conectam direto na biblioteca do Kafka. Descomente essas linhas caso você queira ver os logs do Kafka no console.
 - Até onde eu entendi, algumas configurações presentes na biblioteca do Java não estão disponíveis na versão DotNet. Porém, tudo parece estar funcionando sem problemas.
 - Para evitar erros de digitação, eu criei uma class para os tópicos `Topics` e todo lugar que precisa usar o nome do tópico, utiliza essa classe.
+- No curso, é utilizado o padrão de criar um método GetAmount(), com a justificativa de boa prática em termos de Java. Já em C#, isso não ocorre. Por isso, optei por manter a propriedade como pública, mas sem o *set* público. Logo, ela é como uma propriedade final.
+- Ao invés de sobescrever o método ToString usando as propriedades da classe Order, eu criei um método de extensão que serializa o objeto para uma string com formato Json.
