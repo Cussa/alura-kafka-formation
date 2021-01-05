@@ -5,24 +5,25 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9A4EEBAB-782B-4758-9606-E187FA60645C}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose-cluster.yml = docker-compose-cluster.yml
 		docker-compose.yml = docker-compose.yml
 		ecommerce-start.ps1 = ecommerce-start.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Common", "src\Ecommerce.Common\Ecommerce.Common.csproj", "{89ECDBC3-2B81-4AC6-AE0A-7E631C779C9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Common", "src\Ecommerce.Common\Ecommerce.Common.csproj", "{89ECDBC3-2B81-4AC6-AE0A-7E631C779C9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.NewOrder", "src\Ecommerce.Service.NewOrder\Ecommerce.Service.NewOrder.csproj", "{41E2D826-AD81-48E9-AAF4-2C46B8A9924F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.NewOrder", "src\Ecommerce.Service.NewOrder\Ecommerce.Service.NewOrder.csproj", "{41E2D826-AD81-48E9-AAF4-2C46B8A9924F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.Email", "src\Ecommerce.Service.Email\Ecommerce.Service.Email.csproj", "{9AFBF31B-FBEE-4B23-82B9-631DF9B72976}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.Email", "src\Ecommerce.Service.Email\Ecommerce.Service.Email.csproj", "{9AFBF31B-FBEE-4B23-82B9-631DF9B72976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.Log", "src\Ecommerce.Service.Log\Ecommerce.Service.Log.csproj", "{BDC6304D-AEE0-46D9-9EC6-F2AE5A9ED5FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.Log", "src\Ecommerce.Service.Log\Ecommerce.Service.Log.csproj", "{BDC6304D-AEE0-46D9-9EC6-F2AE5A9ED5FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.FraudDetector", "src\Ecommerce.Service.FraudDetector\Ecommerce.Service.FraudDetector.csproj", "{8AE38EFA-194A-4731-B939-1782B1BA274B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.FraudDetector", "src\Ecommerce.Service.FraudDetector\Ecommerce.Service.FraudDetector.csproj", "{8AE38EFA-194A-4731-B939-1782B1BA274B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.Users", "src\Ecommerce.Service.Users\Ecommerce.Service.Users.csproj", "{E863CD94-21D7-41CA-A377-0E39FC80B705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.Users", "src\Ecommerce.Service.Users\Ecommerce.Service.Users.csproj", "{E863CD94-21D7-41CA-A377-0E39FC80B705}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.HttpWebSite", "src\Ecommerce.Service.HttpWebSite\Ecommerce.Service.HttpWebSite.csproj", "{43DBDB1E-5C7F-4B00-8BAC-EDE30370F56D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.HttpWebSite", "src\Ecommerce.Service.HttpWebSite\Ecommerce.Service.HttpWebSite.csproj", "{43DBDB1E-5C7F-4B00-8BAC-EDE30370F56D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
