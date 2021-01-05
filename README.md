@@ -44,6 +44,20 @@ _consumer = builder.Build();
 - Instead of override the ToString writing the properties from the Order class, I generated a extension method that serialize the object to a json string.
 - Instead of using the ADO connections directly to the SQLite, I used the Entity Framework Core. When we run the User Service for the first time, it automatically create the database and run the migrations.
 
+#### Kafka: Fast delegate, evolução e cluster de brokers - Class 4
+
+In case you want to follow along with the instructor, the properties file is inside the following folder: `/opt/kafka_2.13-2.6/config`.
+One thing that you will need to do is to comment the final configuration on the `server2.properties`, as the default run will already configure the group port and address:
+```
+#advertised.port=9094
+#advertised.host.name=192.168.1.79
+#port=9092
+```
+And then you have to open the port that you will use the second kafka manually. So, on the `docker-compose.yml`, configure the port "9093:9093" too.
+However, as the docker image starts the Kafka automatically, you will face some issues to do the replications change, as showed on the course.
+
+To make it a little bit easier, we can start some other containers and scale Kafka from Docker. To do that, you should first modify the file `docker-compose-cluster.yml`, changing the `KAFKA_ADVERTISED_HOST_NAME` to your local ip address. Then, you can run the following command: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. It will start to services for Kafka, with the replication set to 2 already. Changing this file, you can start even more containers running the Kafka with the replication.
+
 # Portuguese Version
 
 # Formação Kafka - Alura Cursos
@@ -87,3 +101,17 @@ _consumer = builder.Build();
 - No curso, é utilizado o padrão de criar um método GetAmount(), com a justificativa de boa prática em termos de Java. Já em C#, isso não ocorre. Por isso, optei por manter a propriedade como pública, mas sem o *set* público. Logo, ela é como uma propriedade final.
 - Ao invés de sobescrever o método ToString usando as propriedades da classe Order, eu criei um método de extensão que serializa o objeto para uma string com formato Json.
 - Ao invés de usar conexões com ADO direto para o SQLite, eu optei por usar o Entity Framework Core. Ao abrir o sistema de Usuários, ele já cria o banco e executa a Migration.
+
+#### Kafka: Fast delegate, evolução e cluster de brokers - Aula 4
+
+Caso você queira seguir o professor, o arquivo de propriedades está dentro da pasta: `/opt/kafka_2.13-2.6/config`.
+Você irá precisar comentar algumas linhas no final do arquivo de configurações, já que o default irá fazer a configuração de porta e endereço do grupo:
+```
+#advertised.port=9094
+#advertised.host.name=192.168.1.79
+#port=9092
+```
+E você irá precisar abrir uma segnda porta para o kafka manualmente. Logo, no arquivo `docker-compose.yml`, configure a porta "9093:9093" também.
+Porém, já que o docker irá iniciar o Kafka automaticamente, você poderá ter alguns problemas em termos de troca de replicações, como mostrado no curso.
+
+Para tornar a tarefa um pouco mais simples, nós podemos iniciar mais containers e escalar o Kafka direto no Docker. Para fazer isso, você primeiro deve alterar o arquivo `docker-compose-cluster.yml`, modificando o `KAFKA_ADVERTISED_HOST_NAME` para o seu ip local. Depois, você pode rodar o seguinte comando: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. Ele irá iniciar o serviço do Docker com 2 containers para o Kafka, rodando em sistemas de réplicas. Com simples alterações no `docker-compose-cluster.yml`, você pode aumentar o número de réplicas rodando.

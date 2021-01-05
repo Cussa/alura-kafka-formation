@@ -20,6 +20,7 @@ namespace Ecommerce.Common
             return new ProducerConfig()
             {
                 BootstrapServers = "localhost:9092",
+                Acks = Acks.All
                 // Enable this to see the logs from Kafka connection
                 //Debug = "broker,topic,msg"
             };
