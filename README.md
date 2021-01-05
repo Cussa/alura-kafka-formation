@@ -1,6 +1,6 @@
 ﻿# Kafka Formation - Alura Cursos
 
-Portuguese version bellow.
+[Clique aqui para ver a versão em Português.](#forma%C3%A7%C3%A3o-kafka---alura-cursos)
 
 This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.br/formacao-kafka) from the [@alura-cursos](https://github.com/alura-cursos)
 
@@ -8,17 +8,19 @@ This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.b
 
 ## Courses covered until now
 - [Kafka: Produtores, Consumidores e streams](https://cursos.alura.com.br/course/kafka-introducao-a-streams-em-microservicos)
+- [Kafka: Fast delegate, evolução e cluster de brokers](https://cursos.alura.com.br/course/kafka-cluster-de-microservicos)
 
 ## How to run
 
 - Install Visual Studio and Docker on your machine
 - Download the project
-- Run the `ecommerce-start.ps1` on a powershell command. It automatically builds the project and give you some options:
+- Run the [`ecommerce-start.ps1`](ecommerce-start.ps1) on a powershell command. It automatically builds the project and give you some options:
 	- Start an independent consumer for the LogService, EmailService and FraudDetectorService
 	- Start or stop the docker compose
 	- Generate 10 random orders for the test
 
 Ports used: 9092 (Kafka) and 2181 (Zookeeper).
+
 WebSite: 8081 (I had some problems running on 8080 as I have another services running on this port).
 
 In case you want to change the number of partitions for some topic, you can do that directly on the docker-compose.yml file, where the command follow the following pattern: `<topic name>:<number of partitions>:<number of replicas>`. So, if you want to do something like is done on the course, you can change the configuration to:
@@ -53,12 +55,10 @@ One thing that you will need to do is to comment the final configuration on the 
 #advertised.host.name=192.168.1.79
 #port=9092
 ```
-And then you have to open the port that you will use the second kafka manually. So, on the `docker-compose.yml`, configure the port "9093:9093" too.
+And then you have to open the port that you will use the second kafka manually. So, on the [`docker-compose.yml`](docker-compose.yml), configure the port "9093:9093" too.
 However, as the docker image starts the Kafka automatically, you will face some issues to do the replications change, as showed on the course.
 
-To make it a little bit easier, we can start some other containers and scale Kafka from Docker. To do that, you should first modify the file `docker-compose-cluster.yml`, changing the `KAFKA_ADVERTISED_HOST_NAME` to your local ip address. Then, you can run the following command: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. It will start to services for Kafka, with the replication set to 2 already. Changing this file, you can start even more containers running the Kafka with the replication.
-
-# Portuguese Version
+To make it a little bit easier, we can start some other containers and scale Kafka from Docker. To do that, you should first modify the file [`docker-compose-cluster.yml`](docker-compose-cluster.yml), changing the `KAFKA_ADVERTISED_HOST_NAME` to your local ip address. Then, you can run the following command: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. It will start to services for Kafka, with the replication set to 2 already. Changing this file, you can start even more containers running the Kafka with the replication.
 
 # Formação Kafka - Alura Cursos
 
@@ -66,17 +66,19 @@ Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com
 
 ## Cursos abordados até o momento
 - [Kafka: Produtores, Consumidores e streams](https://cursos.alura.com.br/course/kafka-introducao-a-streams-em-microservicos)
+- [Kafka: Fast delegate, evolução e cluster de brokers](https://cursos.alura.com.br/course/kafka-cluster-de-microservicos)
 
 ## Como rodar o projeto
 
 - Instale o Visual Studio e o Docker na sua máquina
 - Faça o download do projeto
-- Execute o comando `ecommerce-start.ps1` no PowerShell. Ele irá efetuar o build do projeto e irá lhe dar algumas opções:
+- Execute o comando [`ecommerce-start.ps1`](ecommerce-start.ps1) no PowerShell. Ele irá efetuar o build do projeto e irá lhe dar algumas opções:
 	- Iniciar consumidores independentes para o LogService, EmailService e FraudDetectorService
 	- Iniciar ou parar o docker compose
 	- Gerar 10 ordens randomicas para teste
 
 Portas usadas: 9092 (Kafka) and 2181 (Zookeeper).
+
 WebSite: 8081 (Eu tive alguns problemas para rodar na porta 8080 já que tenho outro serviço rodando nesta porta).
 
 Caso você queira mudar o número de partições para algum tópico, você pode fazer isso direto no arquio docker-compose.yml, onde o comando segue o seguinte padrão: `<nome do tópico>:<número de partições>:<número de réplicas>`. Logo, se você quiser fazer algo como feito durante o curso, você pode mudar a configuração para:
@@ -111,7 +113,7 @@ Você irá precisar comentar algumas linhas no final do arquivo de configuraçõ
 #advertised.host.name=192.168.1.79
 #port=9092
 ```
-E você irá precisar abrir uma segnda porta para o kafka manualmente. Logo, no arquivo `docker-compose.yml`, configure a porta "9093:9093" também.
+E você irá precisar abrir uma segnda porta para o kafka manualmente. Logo, no arquivo [`docker-compose.yml`](docker-compose.yml), configure a porta "9093:9093" também.
 Porém, já que o docker irá iniciar o Kafka automaticamente, você poderá ter alguns problemas em termos de troca de replicações, como mostrado no curso.
 
-Para tornar a tarefa um pouco mais simples, nós podemos iniciar mais containers e escalar o Kafka direto no Docker. Para fazer isso, você primeiro deve alterar o arquivo `docker-compose-cluster.yml`, modificando o `KAFKA_ADVERTISED_HOST_NAME` para o seu ip local. Depois, você pode rodar o seguinte comando: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. Ele irá iniciar o serviço do Docker com 2 containers para o Kafka, rodando em sistemas de réplicas. Com simples alterações no `docker-compose-cluster.yml`, você pode aumentar o número de réplicas rodando.
+Para tornar a tarefa um pouco mais simples, nós podemos iniciar mais containers e escalar o Kafka direto no Docker. Para fazer isso, você primeiro deve alterar o arquivo [`docker-compose-cluster.yml`](docker-compose-cluster.yml), modificando o `KAFKA_ADVERTISED_HOST_NAME` para o seu ip local. Depois, você pode rodar o seguinte comando: `docker-compose -f .\docker-compose-cluster.yml up --scale kafka=2 -d`. Ele irá iniciar o serviço do Docker com 2 containers para o Kafka, rodando em sistemas de réplicas. Com simples alterações no `docker-compose-cluster.yml`, você pode aumentar o número de réplicas rodando.
