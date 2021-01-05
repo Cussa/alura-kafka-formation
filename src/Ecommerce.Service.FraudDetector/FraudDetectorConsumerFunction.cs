@@ -29,12 +29,12 @@ namespace Ecommerce.Service.FraudDetector
             if (IsFraud(order))
             {
                 Console.WriteLine("Order is a fraud!!!!");
-                _orderDispatcher.Send(Topics.OrderReject, order.UserId, order);
+                _orderDispatcher.Send(Topics.OrderReject, order.Email, order);
             }
             else
             {
                 Console.WriteLine("Approved: " + order);
-                _orderDispatcher.Send(Topics.OrderApproved, order.UserId, order);
+                _orderDispatcher.Send(Topics.OrderApproved, order.Email, order);
             }
         }
 

@@ -14,16 +14,14 @@ namespace Ecommerce.Service.NewOrder
 
             for (int i = 0; i < 10; i++)
             {
-                var userId = Guid.NewGuid().ToString();
                 var orderId = Guid.NewGuid().ToString();
                 var amount = random.NextDouble() * 5000 + 1;
-                
 
-                var order = new Order(userId, orderId, amount, email);
-                orderDispatcher.Send(Topics.NewOrder, userId, order);
+                var order = new Order(orderId, amount, email);
+                orderDispatcher.Send(Topics.NewOrder, email, order);
 
                 var emailCode = "Thank you for your order! We are processing your order!";
-                emailDispatcher.Send(Topics.SendEmail, userId, emailCode);
+                emailDispatcher.Send(Topics.SendEmail, email, emailCode);
             }
         }
     }
