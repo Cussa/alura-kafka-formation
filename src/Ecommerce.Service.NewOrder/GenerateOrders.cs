@@ -10,18 +10,20 @@ namespace Ecommerce.Service.NewOrder
             using var orderDispatcher = new KafkaDispatcher<Order>();
             using var emailDispatcher = new KafkaDispatcher<string>();
             var random = new Random();
+            var email = random.NextDouble() + "@mailinator.com";
 
             for (int i = 0; i < 10; i++)
             {
                 var userId = Guid.NewGuid().ToString();
                 var orderId = Guid.NewGuid().ToString();
                 var amount = random.NextDouble() * 5000 + 1;
+                
 
-                var order = new Order(userId, orderId, amount);
+                var order = new Order(userId, orderId, amount, email);
                 orderDispatcher.Send(Topics.NewOrder, userId, order);
 
-                var email = "Thank you for your order! We are processing your order!";
-                emailDispatcher.Send(Topics.SendEmail, userId, email);
+                var emailCode = "Thank you for your order! We are processing your order!";
+                emailDispatcher.Send(Topics.SendEmail, userId, emailCode);
             }
         }
     }

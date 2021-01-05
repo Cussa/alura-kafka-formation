@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ecommerce.Service.Users.Migrations
 {
@@ -11,7 +10,7 @@ namespace Ecommerce.Service.Users.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Uuid = table.Column<Guid>(type: "TEXT", nullable: false, defaultValue: "newsequentialid()"),
+                    Uuid = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Email = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true)
                 },
                 constraints: table =>

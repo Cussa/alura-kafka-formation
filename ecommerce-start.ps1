@@ -10,6 +10,33 @@ function CheckDockerIsRunning
 	return $isRunning
 }
 
+function StartUserService
+{
+	$isRunning = ps Ecommerce.Service.User -ErrorAction SilentlyContinue
+	if ($isRunning)
+	{
+		Write-Error "You can only run 1 instance of this service."
+	}
+	else
+	{
+		invoke-expression 'cmd /c start .\src\Ecommerce.Service.Users\bin\Debug\netcoreapp3.1\Ecommerce.Service.Users.exe'
+	}
+}
+
+function DeleteUserServiceDatabase
+{
+	$isRunning = ps Ecommerce.Service.Users -ErrorAction SilentlyContinue
+	if ($isRunning)
+	{
+		Write-Error "You cannot delete the database while the service is running."
+	}
+	else
+	{
+		Remove-Item .\src\Ecommerce.Service.Users\bin\Debug\netcoreapp3.1\users_database.db
+		Write-Host "Database deleted with success."
+	}
+}
+
 dotnet build
 cls
 
@@ -22,6 +49,7 @@ while($true)
 	Write-Host "3`tStart Log Service"
 	Write-Host "4`tStart Email Service"
 	Write-Host "5`tStart Fraud Detector Service"
+	Write-Host "88`tDelete Users table"
 	Write-Host "99`tStop Kafka Docker"
 	Write-Host "cls`tClear the console"
 	$ValueInput = Read-Host -Prompt "What do you wanna do"
@@ -34,6 +62,8 @@ while($true)
 		{$_ -eq "3"} { invoke-expression 'cmd /c start .\src\Ecommerce.Service.Log\bin\Debug\netcoreapp3.1\Ecommerce.Service.Log.exe'}
 		{$_ -eq "4"} { invoke-expression 'cmd /c start .\src\Ecommerce.Service.Email\bin\Debug\netcoreapp3.1\Ecommerce.Service.Email.exe'}
 		{$_ -eq "5"} { invoke-expression 'cmd /c start .\src\Ecommerce.Service.FraudDetector\bin\Debug\netcoreapp3.1\Ecommerce.Service.FraudDetector.exe'}
+		{$_ -eq "6"} { StartUserService }
+		{$_ -eq "88"} { DeleteUserServiceDatabase }
 		{$_ -eq "cls"} { cls }
 		{$_ -eq "build"} {
 			dotnet build

@@ -8,13 +8,14 @@ namespace Ecommerce.Service.Users
         public string UserId { get; }
         public string OrderId { get; }
         public double Amount { get; }
-        public string Email { get; } = "email";
+        public string Email { get; }
 
-        public Order(string userId, string orderId, double amount)
+        public Order(string userId, string orderId, double amount, string email)
         {
             UserId = userId;
             OrderId = orderId;
             Amount = amount;
+            Email = email;
         }
 
         public override string ToString() => this.ToJsonString();

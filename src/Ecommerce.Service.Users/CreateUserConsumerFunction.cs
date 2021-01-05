@@ -16,7 +16,7 @@ namespace Ecommerce.Service.Users
 
             if (IsNewUser(order.Email))
             {
-                InsertNewUser(order.Email);
+                InsertNewUser(order.UserId, order.Email);
             }
         }
 
@@ -26,11 +26,13 @@ namespace Ecommerce.Service.Users
             return !db.Users.Any(x => x.Email == email);
         }
 
-        private void InsertNewUser(string email)
+        private void InsertNewUser(string uuid, string email)
         {
             using var db = new UsersDbContext();
-            db.Add(new User { Email = email });
+            db.Add(new User { Uuid = uuid, Email = email });
             db.SaveChanges();
+
+            Console.WriteLine($"User {uuid} with email {email} saved.");
         }
     }
 }
