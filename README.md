@@ -41,6 +41,7 @@ _consumer = builder.Build();
 - To avoid mistypes, I create a Topic class that have the topics names in constants and everywhere that need the topics, uses this class.
 - In the course, the intructor created a GetAmount() method, as it's considered the better pattern to follow in Java. However, the same doesn't happen in C#. So, I decided to use the public property without the *set*, which means you can access the value but can't modified it.
 - Instead of override the ToString writing the properties from the Order class, I generated a extension method that serialize the object to a json string.
+- Instead of using the ADO connections directly to the SQLite, I used the Entity Framework Core. When we run the User Service for the first time, it automatically create the database and run the migrations.
 
 # Portuguese Version
 
@@ -83,3 +84,4 @@ _consumer = builder.Build();
 - Para evitar erros de digitação, eu criei uma class para os tópicos `Topics` e todo lugar que precisa usar o nome do tópico, utiliza essa classe.
 - No curso, é utilizado o padrão de criar um método GetAmount(), com a justificativa de boa prática em termos de Java. Já em C#, isso não ocorre. Por isso, optei por manter a propriedade como pública, mas sem o *set* público. Logo, ela é como uma propriedade final.
 - Ao invés de sobescrever o método ToString usando as propriedades da classe Order, eu criei um método de extensão que serializa o objeto para uma string com formato Json.
+- Ao invés de usar conexões com ADO direto para o SQLite, eu optei por usar o Entity Framework Core. Ao abrir o sistema de Usuários, ele já cria o banco e executa a Migration.
