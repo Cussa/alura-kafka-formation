@@ -13,7 +13,7 @@ namespace Ecommerce.Common
         public KafkaService(string groupId,
             string topic,
             IConsumerFunction<T> consumerFunction,
-            Dictionary<string, string> properties = null) 
+            Dictionary<string, string> properties = null)
             : this(groupId, topic, consumerFunction, new JsonKafkaAdapter<T>(), properties) { }
 
         public KafkaService(string groupId,
@@ -62,12 +62,30 @@ namespace Ecommerce.Common
                 cts.Cancel();
             };
 
+            using var deadLetter = new KafkaDispatcher<string>();
+
             while (!cts.IsCancellationRequested)
             {
                 try
                 {
                     var consumeResult = _consumer.Consume(cts.Token);
-                    _consumerFunction.Consume(consumeResult);
+
+                    try
+                    {
+                        _consumerFunction.Consume(consumeResult);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex.StackTrace);
+
+                        deadLetter.Send(Topics.DeadLetter,
+                            consumeResult.Message.Value.CorrelationId.Id,
+                            Newtonsoft.Json.JsonConvert.SerializeObject(consumeResult.Message.Value),
+                            consumeResult.Message.Value.CorrelationId.ContinueWith("DeadLetter"));
+
+                        Environment.Exit(-1);
+                    }
                 }
                 catch (OperationCanceledException)
                 {

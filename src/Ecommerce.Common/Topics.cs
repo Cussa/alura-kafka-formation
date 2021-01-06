@@ -9,5 +9,6 @@
         public const string OrderApproved = "ECOMMERCE_ORDER_APPROVED";
         public const string UserGenerateReadingReport = "ECOMMERCE_USER_GENERATE_READING_REPORT";
         public const string SendMessageToAllUsers = "ECOMMERCE_SEND_MESSAGE_TO_ALL_USERS";
+        public const string DeadLetter = "ECOMMERCE_DEADLETTER";
     }
 }

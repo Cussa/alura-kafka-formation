@@ -9,6 +9,7 @@ This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.b
 ## Courses covered until now
 - [Kafka: Produtores, Consumidores e streams](https://cursos.alura.com.br/course/kafka-introducao-a-streams-em-microservicos)
 - [Kafka: Fast delegate, evolução e cluster de brokers](https://cursos.alura.com.br/course/kafka-cluster-de-microservicos)
+- [Kafka: Batches, correlation ids e dead letters](https://cursos.alura.com.br/course/kafka-batches-correlation-ids-e-dead-letters)
 
 ## How to run
 
@@ -80,6 +81,7 @@ Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com
 ## Cursos abordados até o momento
 - [Kafka: Produtores, Consumidores e streams](https://cursos.alura.com.br/course/kafka-introducao-a-streams-em-microservicos)
 - [Kafka: Fast delegate, evolução e cluster de brokers](https://cursos.alura.com.br/course/kafka-cluster-de-microservicos)
+- [Kafka: Batches, correlation ids e dead letters](https://cursos.alura.com.br/course/kafka-batches-correlation-ids-e-dead-letters)
 
 ## Como rodar o projeto
 
