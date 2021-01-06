@@ -10,6 +10,9 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
         private readonly KafkaDispatcher<Order> _orderDispatcher;
         private readonly KafkaDispatcher<string> _emailDispatcher;
 
+        private CorrelationId GenerateCorrelationId()
+            => new CorrelationId(typeof(NewOrderController).Name);
+
         public NewOrderController(KafkaDispatcher<Order> orderDispatcher, KafkaDispatcher<string> emailDispatcher)
         {
             _orderDispatcher = orderDispatcher;
@@ -21,10 +24,10 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
         {
             var orderId = Guid.NewGuid().ToString();
             var order = new Order(orderId, amount, email);
-            _orderDispatcher.Send(Topics.NewOrder, email, order);
+            _orderDispatcher.Send(Topics.NewOrder, email, order, GenerateCorrelationId());
 
             var emailCode = "Thank you for your order! We are processing your order!";
-            _emailDispatcher.Send(Topics.SendEmail, email, emailCode);
+            _emailDispatcher.Send(Topics.SendEmail, email, emailCode, GenerateCorrelationId());
 
             Console.WriteLine("New order sent succesfully");
             return Ok("New order sent succesfully");

@@ -4,16 +4,14 @@ namespace Ecommerce.Common
 {
     public class CorrelationId
     {
-        public string Id { get; }
+        public string Id { get; set; }
 
-        public CorrelationId()
+        public CorrelationId(string title)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = $"{title}({Guid.NewGuid()})";
         }
 
-        public CorrelationId(string id)
-        {
-            Id = id;
-        }
+        public CorrelationId ContinueWith(string title)
+        => new CorrelationId($"{Id}-{title}");
     }
 }

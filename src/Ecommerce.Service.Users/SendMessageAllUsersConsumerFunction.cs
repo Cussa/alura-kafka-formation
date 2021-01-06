@@ -18,7 +18,8 @@ namespace Ecommerce.Service.Users
             Console.WriteLine(record.ToRecordString());
 
             foreach (var user in GetAllUsers())
-                _dispatcher.Send(topic, user.Uuid, user);
+                _dispatcher.Send(topic, user.Uuid, user,
+                    record.Message.Value.CorrelationId.ContinueWith(typeof(SendMessageAllUsersConsumerFunction).Name));
         }
 
         private List<User> GetAllUsers()

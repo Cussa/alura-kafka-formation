@@ -5,8 +5,12 @@ namespace Ecommerce.Service.NewOrder
 {
     public class GenerateOrders
     {
+        private static CorrelationId GenerateCorrelationId()
+            => new CorrelationId(typeof(GenerateOrders).Name);
+
         public static void Main(string[] args)
         {
+            var title = typeof(GenerateOrders).Name;
             using var orderDispatcher = new KafkaDispatcher<Order>();
             using var emailDispatcher = new KafkaDispatcher<string>();
             var random = new Random();
@@ -18,10 +22,10 @@ namespace Ecommerce.Service.NewOrder
                 var amount = random.NextDouble() * 5000 + 1;
 
                 var order = new Order(orderId, amount, email);
-                orderDispatcher.Send(Topics.NewOrder, email, order);
+                orderDispatcher.Send(Topics.NewOrder, email, order, GenerateCorrelationId());
 
                 var emailCode = "Thank you for your order! We are processing your order!";
-                emailDispatcher.Send(Topics.SendEmail, email, emailCode);
+                emailDispatcher.Send(Topics.SendEmail, email, emailCode, GenerateCorrelationId());
             }
         }
     }

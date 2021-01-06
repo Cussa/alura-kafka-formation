@@ -26,14 +26,14 @@ namespace Ecommerce.Common
             };
         }
 
-        public void Send(string topic, string key, T value)
+        public void Send(string topic, string key, T value, CorrelationId correlationId)
         {
             static void handler(DeliveryReport<string, KafkaMessage<T>> r) =>
                 Console.WriteLine(!r.Error.IsError
                     ? $"Delivered message to {r.TopicPartitionOffset}"
                     : $"Delivery Error: {r.Error.Reason}");
 
-            var kafkaMessage = new KafkaMessage<T>(new CorrelationId(), value);
+            var kafkaMessage = new KafkaMessage<T>(correlationId, value);
             var message = new Message<string, KafkaMessage<T>> { Key = key, Value = kafkaMessage };
             _producer.Produce(topic, message, handler);
         }

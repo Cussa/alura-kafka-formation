@@ -28,12 +28,14 @@ namespace Ecommerce.Service.FraudDetector
             if (IsFraud(order))
             {
                 Console.WriteLine("Order is a fraud!!!!");
-                _orderDispatcher.Send(Topics.OrderReject, order.Email, order);
+                _orderDispatcher.Send(Topics.OrderReject, order.Email, order,
+                    record.Message.Value.CorrelationId.ContinueWith(typeof(FraudDetectorConsumerFunction).Name));
             }
             else
             {
                 Console.WriteLine("Approved: " + order);
-                _orderDispatcher.Send(Topics.OrderApproved, order.Email, order);
+                _orderDispatcher.Send(Topics.OrderApproved, order.Email, order,
+                    record.Message.Value.CorrelationId.ContinueWith(typeof(FraudDetectorConsumerFunction).Name));
             }
         }
 
