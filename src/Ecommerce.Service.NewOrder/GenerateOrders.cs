@@ -23,9 +23,6 @@ namespace Ecommerce.Service.NewOrder
 
                 var order = new Order(orderId, amount, email);
                 orderDispatcher.Send(Topics.NewOrder, email, order, id);
-
-                var emailCode = "Thank you for your order! We are processing your order!";
-                emailDispatcher.Send(Topics.SendEmail, email, emailCode, id);
             }
         }
     }

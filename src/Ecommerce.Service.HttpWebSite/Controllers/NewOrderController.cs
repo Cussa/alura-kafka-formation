@@ -27,9 +27,6 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
             var order = new Order(orderId, amount, email);
             _orderDispatcher.Send(Topics.NewOrder, email, order, id);
 
-            var emailCode = "Thank you for your order! We are processing your order!";
-            _emailDispatcher.Send(Topics.SendEmail, email, emailCode, id);
-
             Console.WriteLine("New order sent succesfully");
             return Ok("New order sent succesfully");
         }

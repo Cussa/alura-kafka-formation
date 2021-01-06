@@ -76,7 +76,7 @@ To make it a little bit easier, we can start some other containers and scale Kaf
 
 ### Kafka: Idempotência e garantias - Class 1
 
-- As the C# has a different approach patter for organizing the code, I didn't follow the proposed solution.
+- As the C# has a different approach patter for organizing the code, I didn't follow the proposed solution. I splitted it between Models, Config, and Kafka.
 
 ---
 
