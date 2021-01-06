@@ -1,5 +1,7 @@
 ﻿using System;
-using Ecommerce.Common;
+using Ecommerce.Common.Config;
+using Ecommerce.Common.Kafka;
+using Ecommerce.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Service.HttpWebSite.Controllers
@@ -10,9 +12,6 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
         private readonly KafkaDispatcher<Order> _orderDispatcher;
         private readonly KafkaDispatcher<string> _emailDispatcher;
 
-        private CorrelationId GenerateCorrelationId()
-            => new CorrelationId(typeof(NewOrderController).Name);
-
         public NewOrderController(KafkaDispatcher<Order> orderDispatcher, KafkaDispatcher<string> emailDispatcher)
         {
             _orderDispatcher = orderDispatcher;
@@ -22,12 +21,14 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
         [HttpGet("/new")]
         public ActionResult<string> Get([FromQuery] string email, [FromQuery] double amount)
         {
+            var id = new CorrelationId(typeof(NewOrderController).Name);
+
             var orderId = Guid.NewGuid().ToString();
             var order = new Order(orderId, amount, email);
-            _orderDispatcher.Send(Topics.NewOrder, email, order, GenerateCorrelationId());
+            _orderDispatcher.Send(Topics.NewOrder, email, order, id);
 
             var emailCode = "Thank you for your order! We are processing your order!";
-            _emailDispatcher.Send(Topics.SendEmail, email, emailCode, GenerateCorrelationId());
+            _emailDispatcher.Send(Topics.SendEmail, email, emailCode, id);
 
             Console.WriteLine("New order sent succesfully");
             return Ok("New order sent succesfully");

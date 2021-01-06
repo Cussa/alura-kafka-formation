@@ -1,5 +1,7 @@
 ﻿using System;
-using Ecommerce.Common;
+using Ecommerce.Common.Config;
+using Ecommerce.Common.Kafka;
+using Ecommerce.Common.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Service.HttpWebSite.Controllers

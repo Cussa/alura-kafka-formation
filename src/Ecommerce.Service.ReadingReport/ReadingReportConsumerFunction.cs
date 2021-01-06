@@ -2,6 +2,8 @@
 using System.IO;
 using Confluent.Kafka;
 using Ecommerce.Common;
+using Ecommerce.Common.Kafka;
+using Ecommerce.Common.Models;
 
 namespace Ecommerce.Service.ReadingReport
 {
@@ -11,7 +13,7 @@ namespace Ecommerce.Service.ReadingReport
         {
             var user = record.Message.Value.Payload;
             Console.WriteLine("------------------------------");
-            Console.WriteLine($"Processing report for {user.ToJsonString()}");
+            Console.WriteLine($"Processing report for {user.Uuid}");
             Console.WriteLine(record.ToRecordString());
 
             var folder = AppContext.BaseDirectory;

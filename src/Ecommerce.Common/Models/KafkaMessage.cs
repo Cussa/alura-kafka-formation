@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Common
+﻿namespace Ecommerce.Common.Models
 {
     public class KafkaMessage<T>
     {

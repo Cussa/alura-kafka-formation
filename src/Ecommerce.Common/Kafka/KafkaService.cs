@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using Confluent.Kafka;
+using Ecommerce.Common.Config;
+using Ecommerce.Common.Models;
 
-namespace Ecommerce.Common
+namespace Ecommerce.Common.Kafka
 {
     public class KafkaService<T> : IDisposable
     {

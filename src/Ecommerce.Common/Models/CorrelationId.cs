@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ecommerce.Common
+namespace Ecommerce.Common.Models
 {
     public class CorrelationId
     {

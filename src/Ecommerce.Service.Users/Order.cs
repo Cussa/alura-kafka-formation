@@ -1,6 +1,4 @@
-﻿using Ecommerce.Common;
-
-namespace Ecommerce.Service.Users
+﻿namespace Ecommerce.Service.Users
 {
     // using internal, as the by the concept from the course, each service should have its own Order class
     internal class Order
@@ -15,7 +13,5 @@ namespace Ecommerce.Service.Users
             Amount = amount;
             Email = email;
         }
-
-        public override string ToString() => this.ToJsonString();
     }
 }

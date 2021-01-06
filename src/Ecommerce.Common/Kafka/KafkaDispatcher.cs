@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Confluent.Kafka;
+using Ecommerce.Common.Config;
+using Ecommerce.Common.Models;
 
-namespace Ecommerce.Common
+namespace Ecommerce.Common.Kafka
 {
     public class KafkaDispatcher<T> : IDisposable
     {
@@ -19,7 +21,7 @@ namespace Ecommerce.Common
         {
             return new ProducerConfig()
             {
-                BootstrapServers = "localhost:9092",
+                BootstrapServers = KafkaServerConfig.BootstrapServer,
                 Acks = Acks.All
                 // Enable this to see the logs from Kafka connection
                 //Debug = "broker,topic,msg"
@@ -33,7 +35,7 @@ namespace Ecommerce.Common
                     ? $"Delivered message to {r.TopicPartitionOffset}"
                     : $"Delivery Error: {r.Error.Reason}");
 
-            var kafkaMessage = new KafkaMessage<T>(correlationId, value);
+            var kafkaMessage = new KafkaMessage<T>(correlationId.ContinueWith($"_{topic}"), value);
             var message = new Message<string, KafkaMessage<T>> { Key = key, Value = kafkaMessage };
             _producer.Produce(topic, message, handler);
         }

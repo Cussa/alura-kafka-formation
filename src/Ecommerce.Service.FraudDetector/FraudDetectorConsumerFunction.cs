@@ -2,6 +2,9 @@
 using System.Threading;
 using Confluent.Kafka;
 using Ecommerce.Common;
+using Ecommerce.Common.Config;
+using Ecommerce.Common.Kafka;
+using Ecommerce.Common.Models;
 
 namespace Ecommerce.Service.FraudDetector
 {

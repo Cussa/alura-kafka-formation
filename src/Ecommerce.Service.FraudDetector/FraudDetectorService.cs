@@ -1,4 +1,5 @@
-﻿using Ecommerce.Common;
+﻿using Ecommerce.Common.Config;
+using Ecommerce.Common.Kafka;
 
 namespace Ecommerce.Service.FraudDetector
 {

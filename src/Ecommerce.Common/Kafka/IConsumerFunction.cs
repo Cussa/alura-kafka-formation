@@ -1,6 +1,7 @@
 ﻿using Confluent.Kafka;
+using Ecommerce.Common.Models;
 
-namespace Ecommerce.Common
+namespace Ecommerce.Common.Kafka
 {
     public interface IConsumerFunction<T>
     {

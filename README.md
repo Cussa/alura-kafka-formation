@@ -74,6 +74,12 @@ To make it a little bit easier, we can start some other containers and scale Kaf
 
 - Different from Java, the Kafka-DotNet only deliver one message per time. So, there is no implementation of the Max Poll Records. [See more](https://github.com/confluentinc/confluent-kafka-dotnet/issues/1451).
 
+### Kafka: Idempotência e garantias - Class 1
+
+- As the C# has a different approach patter for organizing the code, I didn't follow the proposed solution.
+
+---
+
 # Formação Kafka - Alura Cursos
 
 Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com.br/formacao-kafka) da [@alura-cursos](https://github.com/alura-cursos)

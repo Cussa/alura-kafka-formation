@@ -2,10 +2,11 @@
 using System.ComponentModel;
 using System.Text;
 using Confluent.Kafka;
+using Ecommerce.Common.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Ecommerce.Common
+namespace Ecommerce.Common.Kafka
 {
     public class JsonKafkaAdapter<T> : IDeserializer<KafkaMessage<T>>, ISerializer<KafkaMessage<T>>
     {
