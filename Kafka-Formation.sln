@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.Users", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.HttpWebSite", "src\Ecommerce.Service.HttpWebSite\Ecommerce.Service.HttpWebSite.csproj", "{43DBDB1E-5C7F-4B00-8BAC-EDE30370F56D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Service.ReadingReport", "src\Ecommerce.Service.ReadingReport\Ecommerce.Service.ReadingReport.csproj", "{1ABD8F20-12D7-48A4-A5AC-A12DCCF351C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Service.ReadingReport", "src\Ecommerce.Service.ReadingReport\Ecommerce.Service.ReadingReport.csproj", "{1ABD8F20-12D7-48A4-A5AC-A12DCCF351C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

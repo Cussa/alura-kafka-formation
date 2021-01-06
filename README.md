@@ -63,6 +63,12 @@ To make it a little bit easier, we can start some other containers and scale Kaf
 
 - In the original, the instructor just create a new "Main" method for the batch processor. This is possible because you can run directly the file from the IDE. However, in C# that is not possible. So, to reproduce a similar behavior, I changed the [Main method](src\Ecommerce.Service.Users\UserService.cs) for the UserService and define that when it runs, it asks the which service it should run. In case you want both (New user creation and Batch service), you can run the service two times, one for each service. On the PS Script, you have the shortcuts for both of them.
 
+ ### Kafka: Batches, correlation ids e dead letters - Class 2
+
+- As the Kafka DotNet library has a class called Message, I called my class [`KafkaMessage`](src\Ecommerce.Common\KafkaDispatcher.cs).
+- The Json deserialization is able to use the generics to do the work without needing the `type`, as done in the course. However, it has some issues to deserialize a json object to string directly. So, I created a converter on the JsonKafkaAdapter.
+- With the changes made, the constructor for the `KafkaService` is simpler now. You only need to specify the `IDeserializer` in case you want to work with a different type comparing with the `T` type.
+
 # Formação Kafka - Alura Cursos
 
 Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com.br/formacao-kafka) da [@alura-cursos](https://github.com/alura-cursos)

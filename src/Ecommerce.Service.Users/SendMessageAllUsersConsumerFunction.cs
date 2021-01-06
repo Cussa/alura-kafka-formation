@@ -10,12 +10,12 @@ namespace Ecommerce.Service.Users
     {
         private readonly KafkaDispatcher<User> _dispatcher = new KafkaDispatcher<User>();
 
-        public void Consume(ConsumeResult<string, string> record)
+        public void Consume(ConsumeResult<string, KafkaMessage<string>> record)
         {
-            var topic = record.Message.Value.Trim('"');
+            var topic = record.Message.Value.Payload.Trim('"');
             Console.WriteLine("------------------------------");
             Console.WriteLine("Processing a new batch for every user");
-            Console.WriteLine(topic);
+            Console.WriteLine(record.ToRecordString());
 
             foreach (var user in GetAllUsers())
                 _dispatcher.Send(topic, user.Uuid, user);

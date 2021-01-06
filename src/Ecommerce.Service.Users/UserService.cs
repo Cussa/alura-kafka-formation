@@ -46,8 +46,7 @@ namespace Ecommerce.Service.Users
             using var service = new KafkaService<Order>(
                 typeof(UserService).Name,
                 Topics.NewOrder,
-                createUserConsumerFunction,
-                new JsonKafkaDeserializer<Order>());
+                createUserConsumerFunction);
             service.Run();
         }
 

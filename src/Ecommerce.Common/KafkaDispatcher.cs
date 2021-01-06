@@ -6,12 +6,12 @@ namespace Ecommerce.Common
 {
     public class KafkaDispatcher<T> : IDisposable
     {
-        private readonly IProducer<string, T> _producer;
+        private readonly IProducer<string, KafkaMessage<T>> _producer;
 
         public KafkaDispatcher()
         {
-            _producer = new ProducerBuilder<string, T>(GetConfig())
-                .SetValueSerializer(new JsonKafkaSerializer<T>())
+            _producer = new ProducerBuilder<string, KafkaMessage<T>>(GetConfig())
+                .SetValueSerializer(new JsonKafkaAdapter<T>())
                 .Build();
         }
 
@@ -28,12 +28,13 @@ namespace Ecommerce.Common
 
         public void Send(string topic, string key, T value)
         {
-            static void handler(DeliveryReport<string, T> r) =>
+            static void handler(DeliveryReport<string, KafkaMessage<T>> r) =>
                 Console.WriteLine(!r.Error.IsError
                     ? $"Delivered message to {r.TopicPartitionOffset}"
                     : $"Delivery Error: {r.Error.Reason}");
 
-            var message = new Message<string, T> { Key = key, Value = value };
+            var kafkaMessage = new KafkaMessage<T>(new CorrelationId(), value);
+            var message = new Message<string, KafkaMessage<T>> { Key = key, Value = kafkaMessage };
             _producer.Produce(topic, message, handler);
         }
 

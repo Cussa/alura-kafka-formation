@@ -7,11 +7,12 @@ namespace Ecommerce.Service.ReadingReport
 {
     class ReadingReportConsumerFunction : IConsumerFunction<User>
     {
-        public void Consume(ConsumeResult<string, User> record)
+        public void Consume(ConsumeResult<string, KafkaMessage<User>> record)
         {
-            var user = record.Message.Value;
+            var user = record.Message.Value.Payload;
             Console.WriteLine("------------------------------");
             Console.WriteLine($"Processing report for {user.ToJsonString()}");
+            Console.WriteLine(record.ToRecordString());
 
             var folder = AppContext.BaseDirectory;
             var sourcePath = Path.Combine(folder, "ReportModel.txt");

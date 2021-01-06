@@ -10,8 +10,7 @@ namespace Ecommerce.Service.FraudDetector
             using var service = new KafkaService<Order>(
                 typeof(FraudDetectorService).Name,
                 Topics.NewOrder,
-                fraudDetectorConsumerFunction,
-                new JsonKafkaDeserializer<Order>());
+                fraudDetectorConsumerFunction);
             service.Run();
         }
     }

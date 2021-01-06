@@ -14,14 +14,13 @@ namespace Ecommerce.Service.FraudDetector
             _orderDispatcher = new KafkaDispatcher<Order>();
         }
 
-        public void Consume(ConsumeResult<string, Order> record)
+        public void Consume(ConsumeResult<string, KafkaMessage<Order>> record)
         {
             Console.WriteLine("------------------------------");
             Console.WriteLine("Processing new order, checking for fraud");
-            Console.WriteLine($"{record.Message.Key}\n{record.Message.Value}\n{record.Partition}\n{record.Offset}");
+            Console.WriteLine(record.ToRecordString());
 
-            var order = record.Message.Value;
-            Console.WriteLine($"Order: {order}");
+            var order = record.Message.Value.Payload;
 
             //Simulate a slow process of fraud detection
             Thread.Sleep(5000);

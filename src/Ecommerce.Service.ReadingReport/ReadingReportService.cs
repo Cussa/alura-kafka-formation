@@ -10,8 +10,7 @@ namespace Ecommerce.Service.ReadingReport
             using var service = new KafkaService<User>(
                 typeof(ReadingReportService).Name,
                 Topics.UserGenerateReadingReport,
-                readingReportConsumerFunction,
-                new JsonKafkaDeserializer<User>());
+                readingReportConsumerFunction);
             service.Run();
         }
     }

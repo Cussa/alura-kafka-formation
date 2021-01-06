@@ -8,17 +8,22 @@ namespace Ecommerce.Common
     public class KafkaService<T> : IDisposable
     {
         private readonly IConsumerFunction<T> _consumerFunction;
-        private readonly IConsumer<string, T> _consumer;
+        private readonly IConsumer<string, KafkaMessage<T>> _consumer;
 
         public KafkaService(string groupId,
             string topic,
             IConsumerFunction<T> consumerFunction,
-            IDeserializer<T> deserializer = null,
+            Dictionary<string, string> properties = null) 
+            : this(groupId, topic, consumerFunction, new JsonKafkaAdapter<T>(), properties) { }
+
+        public KafkaService(string groupId,
+            string topic,
+            IConsumerFunction<T> consumerFunction,
+            IDeserializer<KafkaMessage<T>> deserializer,
             Dictionary<string, string> properties = null)
         {
-            var builder = new ConsumerBuilder<string, T>(GetProperties(groupId, properties));
-            if (deserializer != null)
-                builder.SetValueDeserializer(deserializer);
+            var builder = new ConsumerBuilder<string, KafkaMessage<T>>(GetProperties(groupId, properties));
+            builder.SetValueDeserializer(deserializer);
 
 #if DEBUG
             builder.SetPartitionsAssignedHandler((c, partitions) =>

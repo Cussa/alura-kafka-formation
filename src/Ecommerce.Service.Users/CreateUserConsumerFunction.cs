@@ -7,12 +7,12 @@ namespace Ecommerce.Service.Users
 {
     class CreateUserConsumerFunction : IConsumerFunction<Order>
     {
-        public void Consume(ConsumeResult<string, Order> record)
+        public void Consume(ConsumeResult<string, KafkaMessage<Order>> record)
         {
-            var order = record.Message.Value;
+            var order = record.Message.Value.Payload;
             Console.WriteLine("------------------------------");
             Console.WriteLine("Processing new order, checking for new user");
-            Console.WriteLine(order.ToJsonString());
+            Console.WriteLine(record.ToRecordString());
 
             if (IsNewUser(order.Email))
             {
