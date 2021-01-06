@@ -69,6 +69,10 @@ To make it a little bit easier, we can start some other containers and scale Kaf
 - The Json deserialization is able to use the generics to do the work without needing the `type`, as done in the course. However, it has some issues to deserialize a json object to string directly. So, I created a converter on the JsonKafkaAdapter.
 - With the changes made, the constructor for the `KafkaService` is simpler now. You only need to specify the `IDeserializer` in case you want to work with a different type comparing with the `T` type.
 
+### Kafka: Batches, correlation ids e dead letters - Class 4
+
+- Different from Java, the Kafka-DotNet only deliver one message per time. So, there is no implementation of the Max Poll Records. [See more](https://github.com/confluentinc/confluent-kafka-dotnet/issues/1451).
+
 # Formação Kafka - Alura Cursos
 
 Esta é uma implementação em C# da [Formação Kafka](https://cursos.alura.com.br/formacao-kafka) da [@alura-cursos](https://github.com/alura-cursos)
