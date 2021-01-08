@@ -1,5 +1,4 @@
 ﻿using System;
-using Ecommerce.Common.Config;
 using Ecommerce.Common.Kafka;
 
 namespace Ecommerce.Service.Users
@@ -42,23 +41,9 @@ namespace Ecommerce.Service.Users
         }
 
         private static void CreateUserService()
-        {
-            var createUserConsumerFunction = new CreateUserConsumerFunction();
-            using var service = new KafkaService<Order>(
-                typeof(UserService).Name,
-                Topics.NewOrder,
-                createUserConsumerFunction);
-            service.Run();
-        }
+            => new ServiceRunner<Order>(() => new CreateUserService()).Start();
 
         private static void BatchService()
-        {
-            var sendMessageAllUsersConsumerFunction = new SendMessageAllUsersConsumerFunction();
-            using var service = new KafkaService<string>(
-                typeof(UserService).Name,
-                Topics.SendMessageToAllUsers,
-                sendMessageAllUsersConsumerFunction);
-            service.Run();
-        }
+            => new ServiceRunner<string>(() => new SendMessageAllUsersService()).Start();
     }
 }

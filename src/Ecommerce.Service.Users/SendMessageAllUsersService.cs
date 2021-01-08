@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Confluent.Kafka;
 using Ecommerce.Common;
+using Ecommerce.Common.Config;
 using Ecommerce.Common.Kafka;
 using Ecommerce.Common.Models;
 
 namespace Ecommerce.Service.Users
 {
-    class SendMessageAllUsersConsumerFunction : IConsumerFunction<string>
+    class SendMessageAllUsersService : IConsumerFunction<string>
     {
         private readonly KafkaDispatcher<User> _dispatcher = new KafkaDispatcher<User>();
+
+        public string Topic => Topics.SendMessageToAllUsers;
+
+        public string ConsumerGroup => nameof(SendMessageAllUsersService);
 
         public void Consume(ConsumeResult<string, KafkaMessage<string>> record)
         {
@@ -21,7 +26,7 @@ namespace Ecommerce.Service.Users
 
             foreach (var user in GetAllUsers())
                 _dispatcher.Send(topic, user.Uuid, user,
-                    record.Message.Value.CorrelationId.ContinueWith(typeof(SendMessageAllUsersConsumerFunction).Name));
+                    record.Message.Value.CorrelationId.ContinueWith(ConsumerGroup));
         }
 
         private List<User> GetAllUsers()

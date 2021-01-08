@@ -2,13 +2,18 @@
 using System.Linq;
 using Confluent.Kafka;
 using Ecommerce.Common;
+using Ecommerce.Common.Config;
 using Ecommerce.Common.Kafka;
 using Ecommerce.Common.Models;
 
 namespace Ecommerce.Service.Users
 {
-    class CreateUserConsumerFunction : IConsumerFunction<Order>
+    class CreateUserService : IConsumerFunction<Order>
     {
+        public string Topic => Topics.NewOrder;
+
+        public string ConsumerGroup => nameof(CreateUserService);
+
         public void Consume(ConsumeResult<string, KafkaMessage<Order>> record)
         {
             var order = record.Message.Value.Payload;

@@ -21,7 +21,7 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
         [HttpGet("/new")]
         public ActionResult<string> Get([FromQuery] string email, [FromQuery] double amount)
         {
-            var id = new CorrelationId(typeof(NewOrderController).Name);
+            var id = new CorrelationId(nameof(NewOrderController));
 
             var orderId = Guid.NewGuid().ToString();
             var order = new Order(orderId, amount, email);

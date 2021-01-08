@@ -22,7 +22,7 @@ namespace Ecommerce.Service.HttpWebSite.Controllers
             _batchDispatcher.Send(Topics.SendMessageToAllUsers,
                 Topics.UserGenerateReadingReport,
                 Topics.UserGenerateReadingReport,
-                new CorrelationId(typeof(AdminController).Name));
+                new CorrelationId(nameof(AdminController)));
 
             Console.WriteLine("Sent generate reports to all users");
             return Ok("Sent generate reports to all users");
