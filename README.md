@@ -4,7 +4,7 @@
 
 This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.br/formacao-kafka) from the [@alura-cursos](https://github.com/alura-cursos)
 
-![alt text](https://github.com/Cussa/alura-kafka-formation/blob/main/images/ServiceRunning.png?raw=true)
+![alt text](images/ServiceRunningNew.png?raw=true)
 
 ## Courses covered until now
 - [Kafka: Produtores, Consumidores e streams](https://cursos.alura.com.br/course/kafka-introducao-a-streams-em-microservicos)
