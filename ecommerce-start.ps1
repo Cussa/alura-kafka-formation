@@ -49,6 +49,20 @@ function DeleteUserServiceDatabase
 	}
 }
 
+function DeleteFraudDetectorDatabase
+{
+	$isRunning = ps Ecommerce.Service.FraudDetector -ErrorAction SilentlyContinue
+	if ($isRunning)
+	{
+		Write-Error "You cannot delete the database while the service is running."
+	}
+	else
+	{
+		Remove-Item .\src\Ecommerce.Service.FraudDetector\bin\Debug\netcoreapp3.1\frauds_database.db
+		Write-Host "Database deleted with success."
+	}
+}
+
 dotnet build
 cls
 
@@ -65,7 +79,9 @@ while($true)
 	Write-Host "7`tStart Batch User Service"
 	Write-Host "8`tStart Reading Report Service"
 	Write-Host "9`tStart Email New Order Service"
-	Write-Host "88`tDelete Users table"
+	Write-Host "10`tStart the HttpWebSite as Console"
+	Write-Host "88`tDelete Users database"
+	Write-Host "89`tDelete Frauds Detector database"
 	Write-Host "99`tStop Kafka Docker"
 	Write-Host "cls`tClear the console"
 	$ValueInput = Read-Host -Prompt "What do you wanna do"
@@ -82,7 +98,9 @@ while($true)
 		{$_ -eq "7"} { StartService "Ecommerce.Service.Users" -Arguments "2" }
 		{$_ -eq "8"} { StartService "Ecommerce.Service.ReadingReport" }
 		{$_ -eq "9"} { StartService "Ecommerce.Service.EmailNewOrder" }
+		{$_ -eq "10"} { StartService "Ecommerce.Service.HttpWebSite" }
 		{$_ -eq "88"} { DeleteUserServiceDatabase }
+		{$_ -eq "89"} { DeleteFraudDetectorDatabase }
 		{$_ -eq "cls"} { cls }
 		{$_ -eq "build"} {
 			dotnet build

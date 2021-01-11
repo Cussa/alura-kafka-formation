@@ -1,21 +1,21 @@
 ﻿using Ecommerce.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecommerce.Service.Users
+namespace Ecommerce.Service.FraudDetector.Database
 {
-    public class UsersDbContext : DbContext
+    public class LocalDbContext : DbContext
     {
-        public UsersDbContext()
+        public LocalDbContext()
         {
             Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            var databasePath = "users_database.db".WithCurrentDirectory();
+            var databasePath = "frauds_database.db".WithCurrentDirectory();
             options.UseSqlite($"Data Source={databasePath}");
         }
 
-        internal DbSet<User> Users { get; set; }
+        internal DbSet<DbOrder> Orders { get; set; }
     }
 }

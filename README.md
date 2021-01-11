@@ -20,9 +20,11 @@ This is a C# implementation for the [Kafka Formation](https://cursos.alura.com.b
 	- Start or stop the docker compose
 	- Generate 10 random orders for the test
 
-Ports used: 9092 (Kafka) and 2181 (Zookeeper).
-
-WebSite: 8081 (I had some problems running on 8080 as I have another services running on this port).
+#### Ports used
+- 9092: Kafka
+- 2181: Zookeeper
+- 8081: WebSite with IISExpress (I had some problems running on 8080 as I have another services running on this port)
+- 5000: WebSite with Runner from PS Script
 
 In case you want to change the number of partitions for some topic, you can do that directly on the docker-compose.yml file, where the command follow the following pattern: `<topic name>:<number of partitions>:<number of replicas>`. So, if you want to do something like is done on the course, you can change the configuration to:
 ```
@@ -77,6 +79,10 @@ To make it a little bit easier, we can start some other containers and scale Kaf
 ### Kafka: Idempotência e garantias - Class 1
 
 - As the C# has a different approach patter for organizing the code, I didn't follow the proposed solution. I splitted it between Models, Config, and Kafka.
+
+### Kafka: Idempotência e garantias - Class 5
+
+- On the project, they refactor the database access classes to a library. However, given that we using here the EntityFramework with the SQLite, that is not necessary. So, you will not find this kind of implementation on this repo.
 
 ---
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using Confluent.Kafka;
 using Ecommerce.Common;
 using Ecommerce.Common.Config;
@@ -24,7 +25,7 @@ namespace Ecommerce.Service.ReadingReport
             Console.WriteLine($"Processing report for {user.Uuid}");
             Console.WriteLine(record.ToRecordString());
 
-            var folder = AppContext.BaseDirectory;
+            var folder = string.Empty.WithCurrentDirectory();
             var sourcePath = Path.Combine(folder, "ReportModel.txt");
             var targetFolder = Path.Combine(folder, "target");
             Directory.CreateDirectory(targetFolder);
